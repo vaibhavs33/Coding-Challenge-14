@@ -35,6 +35,21 @@ function createSupportTicket(customer, issue, priority) {
     resolveBtn.setAttribute('class', 'resolve-btn');
     resolveBtn.textContent = 'Resolve';
     ticketCard.append(resolveBtn); 
+
+    //Task 4 - Support Ticket Resolution with Event Bubbling
+    resolveBtn.addEventListener('click', (event) => {
+        //Removing the ticket from the webpage when the button is clicked
+        ticketCard.remove();
+            
+        //Prevent click from affecting parent elements (stop event bubbling)
+        event.stopPropagation();
+    });
+    
+    //Logs the current ticket's customer name when the ticket is clicked
+    ticketCard.addEventListener('click', () => {
+        console.log('Clicked On Support Ticket:', custName.textContent);
+    });
+
 }
 
 //When the webpage loads, the initial support tickets are added
