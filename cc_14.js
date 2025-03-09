@@ -50,3 +50,34 @@ document.getElementById('addTicketBtn').addEventListener('click', () => {
     const currentTicket = createSupportTicket('Kathie Fuller', 'Software bug report', 'High');
     styleSingleCard(currentTicket);
 })
+
+//Task 3 - Highlighting High Priority Tickets
+function highlightHighPriorityTickets(){
+    //Selecting all the support tickets currently on the page
+    const highPriorityTickets = document.querySelectorAll('.ticket-card');
+    
+    //Converting all tickets to an array and adding priority-based styling to each ticket
+    const arrTickets = Array.from(highPriorityTickets);
+    arrTickets.forEach((ticket) => {
+        styleSingleCard(ticket);
+    })
+}
+
+//Applies different styles based on the priority level of the ticket
+function styleSingleCard(currentCard){
+    //Retrieves the priority text from the ticket to determine styling
+    const priority = currentCard.querySelector('.priority-label');
+        
+    //Checks if the priority is "High" and updates the styling
+    if(priority.textContent.replace('Priority: ', '').toLowerCase() === 'high'){
+        //Removing non-high style
+        currentCard.classList.remove('other-priority');
+        
+        //Applying high-priority style
+        currentCard.classList.add('high-priority');
+    }
+    else{
+        currentCard.classList.remove('high-priority');
+        currentCard.classList.add('other-priority');
+    }
+}
