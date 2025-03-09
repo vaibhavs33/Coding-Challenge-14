@@ -50,6 +50,73 @@ function createSupportTicket(customer, issue, priority) {
         console.log('Clicked On Support Ticket:', custName.textContent);
     });
 
+    //Task 5 - Inline Editing for Support Tickets
+    ticketCard.addEventListener('dblclick', () => {
+        //Prevents multiple edit inputs from appearing at the same time
+        if(ticketCard.querySelector('.save-btn')){
+            return;
+        }
+        
+        //Clearing the current ticket content for editing
+        ticketCard.innerHTML = '';
+    
+        //Creating an input field to edit the customer's name
+        const nameInput = document.createElement('input');
+        nameInput.setAttribute('type', 'text');
+        nameInput.value = custName.textContent;
+    
+        //Creating an input field to edit the issue description
+        const issueInput = document.createElement('input');
+        issueInput.setAttribute('type', 'text');
+        issueInput.value = issueDesc.textContent;
+    
+        //Creating an input field to edit the priority level (Low, Medium, or High)
+        const priorityInput = document.createElement('input');
+        priorityInput.setAttribute('type', 'text');
+        priorityInput.value = priorityLabel.textContent.replace('Priority: ', '');
+
+        //Creating a save button that updates the ticket with new values
+        const saveBtn = document.createElement('button');
+        saveBtn.setAttribute('class', 'save-btn');
+        saveBtn.textContent = 'Save';
+    
+        //Adding all the input field and buttons to the ticket with spacing
+        ticketCard.appendChild(nameInput);
+        ticketCard.appendChild(document.createElement('br'));
+        ticketCard.appendChild(issueInput);
+        ticketCard.appendChild(document.createElement('br'));
+        ticketCard.appendChild(priorityInput);
+        ticketCard.appendChild(document.createElement('br'));
+        ticketCard.appendChild(saveBtn);
+        ticketCard.appendChild(document.createElement('br'));
+        ticketCard.appendChild(resolveBtn);
+    
+        //Updates the ticket with the edited details when the save button is clicked
+        saveBtn.onclick = () => {
+            //Updates the customer name
+            custName.textContent = nameInput.value;
+            
+            //Updates the issue description
+            issueDesc.textContent = issueInput.value;
+            
+            //Updates the priority label
+            priorityLabel.textContent = `Priority: ${priorityInput.value}`;
+            
+            //Restores the ticket layout after editing
+            ticketCard.innerHTML = '';
+            ticketCard.append(custName, issueDesc, priorityLabel, resolveBtn);
+            
+            //Reapplying styles in case the priority was changed
+            styleSingleCard(ticketCard)
+        };
+    });
+    
+    //Adding the completed ticket to the ticket container
+    divTicketContainer.appendChild(ticketCard);
+    
+    //Applying styling based on the priority level of the ticket
+    styleSingleCard(ticketCard);
+    return ticketCard;
 }
 
 //When the webpage loads, the initial support tickets are added
