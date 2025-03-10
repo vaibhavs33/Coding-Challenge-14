@@ -93,14 +93,30 @@ function createSupportTicket(customer, issue, priority) {
     
         //Updates the ticket with the edited details when the save button is clicked
         saveBtn.onclick = () => {
-            //Updates the customer name
-            custName.textContent = nameInput.value;
+            //Updates the customer name. If value is not null or empty space, otherwise inform the user with an alert.
+            if(nameInput.value != null && nameInput.value.trim() != ''){
+                custName.textContent = nameInput.value.trim();
+            }
+            else{
+                alert('Customer name cannot be empty, so putting the old value back');
+            }
             
-            //Updates the issue description
-            issueDesc.textContent = issueInput.value;
+            //Updates the issue description. If value is not null or empty space, otherwise inform the user with an alert.
+            if(issueInput.value != null && issueInput.value.trim() != ''){
+                issueDesc.textContent = issueInput.value.trim();
+            }
+            else{
+                alert('Issue description cannot be empty, so putting the old value back');
+            }
+                
             
-            //Updates the priority label
-            priorityLabel.textContent = `Priority: ${priorityInput.value}`;
+            //Updates the priority label. If value is not null or empty space, otherwise inform the user with an alert.
+            if(priorityInput.value != null && priorityInput.value.trim() != ''){
+                priorityLabel.textContent = `Priority: ${priorityInput.value.trim()}`;
+            }
+            else{
+                alert('Priority cannot be empty, so putting the old value back');
+            }
             
             //Restores the ticket layout after editing
             ticketCard.innerHTML = '';
